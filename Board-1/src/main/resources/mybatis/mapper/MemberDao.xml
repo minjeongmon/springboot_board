@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.board.dao.MemberDao">
+
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="com.study.board.dto.MemberDto">
+	
+		INSERT INTO
+					user
+		SET
+					user_id = #{userId}
+					, user_name = #{userName}
+					, user_pwd = #{userPwd}
+					, user_email = #{userEmail}
+			
+	</insert>
+	
+	<!-- 로그인 처리 -->
+	
+	<select id="login" resultType="com.study.board.dto.MemberDto">
+	
+		<![CDATA[
+			SELECT 
+					user_id as userId
+					, user_name as userName 
+			FROM 
+					user
+			WHERE 
+					user_id = #{userId}
+			AND		user_pwd = #{userPwd}
+		]]>
+	
+	</select>
+	
+
+
+</mapper>

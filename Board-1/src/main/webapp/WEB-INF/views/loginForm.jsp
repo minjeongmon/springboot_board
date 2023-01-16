@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,34 +10,34 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-	<title>Spring Boot - Board List</title>
+    <!-- Custom styles for this template -->
+    <link href="/css/signin.css" rel="stylesheet">
+	<title>Spring Boot - Login Page</title>
 </head>
-<body>
+<body class="text-center">
+
 	<!-- header  -->
 	<%@include file ="comm/header.jsp"%>
 	
-	<main>
-	<div class="container">
-		<form action="writeAction" method="post" style="width: 75%; margin: 0 auto;">
-			<div class="form-group">
-				<label for="title">제목</label>
-				<input type="text" class="form-control" id="title" name="board_title" placeholder="제목을 입력하세요">
-			</div>
-			<div class="form-group">
-				<label for="title">작성자</label>
-				<input type="text" class="form-control" id="title" name="board_name" value="${ sessionScope.authUser.userName}">
-			</div>
-			<div class="form-group">
-				<label for="content">내용</label>
-				<textarea class="form-control" id="content" name="board_contents" rows="5" placeholder="내용을 입력하세요"></textarea>
-			</div>
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<button type="submit" class="btn btn-outline-secondary mt-3">확인</button>
-				<button type="button" class="btn btn-outline-secondary mt-3" onclick="location.href='boardList'">목록</button>
-			</div>
-		</form>
+	<div class= "container">
+		<main class="form-signin">
+			<form action="/login" method="post">
+				<img class="mb-4" src="https://getbootstrap.com/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+				<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+				
+					<div class="form-floating">
+						<input type="text" class="form-control" id="userId" name="userId">
+						<label for="floatingInput">ID</label>
+					</div>
+					<div class="form-floating">
+						<input type="password" class="form-control" id="userPwd" name="userPwd">
+						<label for="floatingPassword">PASSWORD</label>
+					</div>
+	
+					<button class="w-100 btn btn-lg btn-secondary" type="submit">Sign in</button>
+			</form>
+		</main>
 	</div>
-	</main>
 	
 	<!-- footer  -->
 	<%@include file ="comm/footer.jsp"%>

@@ -6,8 +6,10 @@
 	<!-- 리스트 불러오기 -->
 	<select id="list" resultType="com.study.board.dto.BoardDto">
 	
-		select * from board
-		order by board_date desc
+		SELECT 
+				board_idx, board_title, board_contents, board_name, board_date, board_hit
+		FROM 
+				board
 		
 	</select>
 	
@@ -15,7 +17,7 @@
 	<insert id="write" parameterType="com.study.board.dto.BoardDto">
 	
 		INSERT INTO board 
-			SET board_title = #{board_title}
+		SET board_title = #{board_title}
 			, board_contents = #{board_contents}
 			, board_name = #{board_name}
 			, board_date = NOW()
@@ -59,5 +61,13 @@
 	
 	</update>
 	
+	<!-- 게시글 총 갯수
+	<select id="count" resultType="int">
+		SELECT
+				COUNT(board_idx)
+		FROM
+				board
+	</select>
+	 -->
 
 </mapper>

@@ -3,6 +3,7 @@ package com.study.board.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,10 @@ import com.study.board.dto.ReplyDto;
 public class BoardController {
 	
 	@Autowired
-	BoardDao boardDao;
+	private BoardDao boardDao;
 	
 	@Autowired
-	ReplyDao replyDao;
+	private ReplyDao replyDao;
 	
 	@RequestMapping("/")
 	public String main() {
@@ -32,12 +33,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardList")
-	public String boardList(Model model, HttpServletRequest request) {
+	public String boardList(Model model, HttpSession session) {
 		
 		List<BoardDto> list = boardDao.list();
 		model.addAttribute("list", list);
 		
-		System.out.println(list);
 		
 		return "boardList";
 	}
@@ -163,9 +163,6 @@ public class BoardController {
 		}
 		
 	}
-
-	
-
 
 
 }

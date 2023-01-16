@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!doctype html>
 <html lang="en">
@@ -21,7 +22,12 @@
 	<%@include file ="comm/header.jsp"%>
 	
 	<main>
-		<div class="container" style="width: 75%; margin: 0 auto;">
+			<div class="container" style="width: 75%; margin: 0 auto;">
+			<div style="float: right">
+				<input type="text" name="search"/>
+				<button type="button" class="btn btn-secondary">검색</button>
+			</div>
+
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -34,29 +40,53 @@
 				</thead>
 				<tbody>
 					
-					<c:forEach var="dto" items="${list }">
+					<c:forEach var="dto" items="${list }"  varStatus="status">
 					
 						<tr>
-							<td>${dto.board_idx }</td>
+						
+							<!-- 게시글 번호 역순 카운팅 -->
+							<td>
+								${fn:length(list) - status.index }
+							</td>
 							<td>
 								<a href="contentForm?board_idx=${dto.board_idx}">${dto.board_title }</a>
 							</td>
-							<td>${dto.board_name }</td>
+							<td>
+								${dto.board_name }
+							</td>
 							<td>
 								<c:set var="dateVar" value="${dto.board_date }"/>
 								<fmt:formatDate value="${dateVar }" pattern="yyyy-MM-dd"/>
 							</td>
-							<td>${dto.board_hit }</td>
+							<td>
+								${dto.board_hit }
+							</td>
 						</tr>
 						
 					</c:forEach>
 
 				</tbody>
 			</table>
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<a href="/writeForm" class="btn btn-dark">Write</a>
-			</div>
+			
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" href="#"><</a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">></a></li>
+					</ul>
+				</nav>
+
+			
+			<c:if test = "${not empty authUser }">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					<a href="/writeForm" class="btn btn-dark">작성</a>
+				</div>
+			</c:if>
 		</div>
+		
+
 	</main>
 
 	<!-- footer  -->
