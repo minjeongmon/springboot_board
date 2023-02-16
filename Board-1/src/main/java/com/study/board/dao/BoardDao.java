@@ -5,11 +5,17 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.study.board.dto.BoardDto;
+import com.study.board.dto.Criteria;
 
 @Mapper
 public interface BoardDao {
 	
-	public List<BoardDto> list();
+	// public List<BoardDto> list();
+	
+	// 게시판 리스트 불러오기 + 페이징
+	public List<BoardDto> listWithPaging(Criteria criteria);
+	
+	public int getTotalCount(Criteria criteria);
 	
 	public int write(BoardDto boardDto);
 	

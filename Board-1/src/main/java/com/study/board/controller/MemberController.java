@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.board.dto.MemberDto;
 import com.study.board.service.MemberService;
@@ -18,14 +17,24 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	// 회원가입 페이지
+	@GetMapping("joinForm")
+	public String joinForm() {
+		return "joinForm";
+	}
+
+	// 로그인 페이지
 	@GetMapping("loginForm")
 	public String loginForm() {
 		return "loginForm";
 	}
 	
-	@GetMapping("joinForm")
-	public String joinForm() {
-		return "joinForm";
+	
+	// 회원가입
+	@PostMapping("join")
+	public String joinPost(MemberDto memberDto) throws Exception {
+		memberService.memberJoin(memberDto);
+		return "redirect:/loginForm";
 	}
 
 	
@@ -58,12 +67,28 @@ public class MemberController {
 		return "redirect:/loginForm";
 	}
 	
-	/* 회원가입 기능 */
-	@RequestMapping("join")
-	public String join(@ModelAttribute MemberDto memberDto) throws Exception {
-		memberService.join(memberDto);
-		return "redirect:/loginForm";
-	}
-	
 
+	/* 회원 가입 
+	
+	@PostMapping("join")
+	public String join(MemberDto memberDto) throws Exception {
+		int result = memberService.join(memberDto);
+		
+		if(result == 1) {
+			return "redirect:login";
+		}
+		
+			return "redirect:joinForm";
+	} */
+	
+	
+	/* 중복체크 
+	@RequestMapping("idCheck")
+	
+	public @ResponseBody int idCheck(String userId) {
+		
+		int result = memberDao.idCheck(userId);
+		return result;
+	}
+	*/
 }

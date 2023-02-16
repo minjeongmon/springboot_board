@@ -24,3 +24,13 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+#idCheck_1 {
+	color: green;
+	display: none;
+}
+
+#idCheck_2 {
+	color: red;
+	display: none;
+}

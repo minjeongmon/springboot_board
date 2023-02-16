@@ -26,12 +26,19 @@
 			</div>
 			<div class="form-group">
 				<label for="title">작성자</label>
-				<input type="text" class="form-control" id="title" name="board_name" value="${ sessionScope.authUser.userName}">
+				<input type="text" class="form-control" id="title" name="board_name" value="${ sessionScope.authUser.userName}" readonly>
 			</div>
 			<div class="form-group">
 				<label for="content">내용</label>
 				<textarea class="form-control" id="content" name="board_contents" rows="5" placeholder="내용을 입력하세요"></textarea>
 			</div>
+			
+			<div class="form-group">
+				<label for="addFile">파일 첨부</label>
+				
+			</div>
+			
+			
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				<button type="submit" class="btn btn-outline-secondary mt-3">확인</button>
 				<button type="button" class="btn btn-outline-secondary mt-3" onclick="location.href='boardList'">목록</button>

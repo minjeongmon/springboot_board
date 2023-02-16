@@ -36,11 +36,11 @@
 			</div>
 			<div class="form-group">
 				<label for="title">작성자</label>
-				<input type="text" class="form-control" id="title" name="board_name" value="${dto.board_name }">
+				<input type="text" class="form-control" id="title" name="board_name" value="${dto.board_name }" readonly>
 			</div>
 			<div class="form-group">
 				<label for="content">내용</label>
-				<textarea class="form-control" id="content" name="board_contents" rows="5">${dto.board_title }</textarea>
+				<textarea class="form-control" id="content" name="board_contents" rows="5">${dto.board_contents }</textarea>
 			</div>
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				<button type="submit" class="btn btn-outline-secondary mt-3">수정</button>

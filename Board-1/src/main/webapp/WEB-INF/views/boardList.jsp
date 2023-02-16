@@ -13,22 +13,35 @@
 <!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
 	<title>Spring Boot - Board List</title>
 </head>
 
 <body>
+
+<!-- 	<script type="text/javascript">
+		$("#searchButton").on("click", function(e){
+			e.preventDefault();
+			let val = $("input[name='keyword']").val();
+			moveForm.find("input[name='keyword']").val(val);
+			moveForm.find("input[name='pageNum']").val(1);
+			moveForm.submit();
+		})
+	
+	</script> -->
+
 	<!-- header  -->
 	<%@include file ="comm/header.jsp"%>
-	
-	<main>
-			<div class="container" style="width: 75%; margin: 0 auto;">
-			<div style="float: right">
-				<input type="text" name="search"/>
-				<button type="button" class="btn btn-secondary">검색</button>
-			</div>
 
-			<table class="table table-hover">
+			<div class="container" style="width: 75%; margin: 0 auto;">
+						
+				<form id="searchForm" method="get">
+					<div style="float: right">
+						<input type="text" name="keyword" placeholder="검색어를 입력하세요"/>
+						<button id="searchButton" class="btn btn-secondary">검색</button>
+					</div>
+				</form>
+
+			<table class="table table-hover" style="text-align: center;">
 				<thead>
 					<tr>
 						<th scope="col">번호</th>
@@ -68,17 +81,28 @@
 				</tbody>
 			</table>
 			
-				<nav aria-label="Page navigation example">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#"><</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">></a></li>
-					</ul>
-				</nav>
-
+			<!--  pagination  -->
 			
+			<div class="center">
+				<ul class="pagination justify-content-center">
+					<c:if test="${pageMaker.prev }">
+						<!-- 이전 페이지 -->
+						<li class="page-item"><a class="page-link" href="boardList?pageNum=${pageMaker.startPage - 1 }">Previous</a></li>
+					</c:if>
+					
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="num">
+						<li class="page-item"><a class="page-link" href="boardList?pageNum=${num }">${num }</a></li>
+					</c:forEach>
+					
+					<c:if test="${pageMaker.next }">
+						<!-- 다음 페이지 -->
+						<li class="page-item"><a class="page-link" href="boardList?pageNum=${pageMaker.endPage + 1 }">Next</a></li>
+					</c:if>
+				</ul>
+			</div>
+			
+
+			<!-- 글쓰기 버튼 -->
 			<c:if test = "${not empty authUser }">
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 					<a href="/writeForm" class="btn btn-dark">작성</a>
@@ -86,9 +110,6 @@
 			</c:if>
 		</div>
 		
-
-	</main>
-
 	<!-- footer  -->
 	<%@include file ="comm/footer.jsp"%>
 

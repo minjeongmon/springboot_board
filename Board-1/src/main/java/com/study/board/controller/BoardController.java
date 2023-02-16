@@ -3,11 +3,11 @@ package com.study.board.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.study.board.dao.BoardDao;
 import com.study.board.dao.ReplyDao;
 import com.study.board.dto.BoardDto;
+import com.study.board.dto.Criteria;
+import com.study.board.dto.PageDto;
 import com.study.board.dto.ReplyDto;
+import com.study.board.service.BoardService;
 
 @Controller
 public class BoardController {
@@ -27,33 +30,46 @@ public class BoardController {
 	@Autowired
 	private ReplyDao replyDao;
 	
+	@Autowired
+	private BoardService boardService;
+	
 	@RequestMapping("/")
 	public String main() {
 		return "home";
 	}
 	
-	@RequestMapping("/boardList")
-	public String boardList(Model model, HttpSession session) {
+	 
+	/*
+	 * @RequestMapping("/boardList") public String boardList(Model model,
+	 * HttpSession session) {
+	 * 
+	 * List<BoardDto> list = boardDao.list(); model.addAttribute("list", list);
+	 * 
+	 * 
+	 * return "boardList"; }
+	 */
+	
+	@GetMapping("/boardList")
+	public void list(Criteria criteria, Model model) {
 		
-		List<BoardDto> list = boardDao.list();
-		model.addAttribute("list", list);
+		
+		// DB에서 데이터 가져오기 - criteria 데이터만 필요
+		model.addAttribute("list", boardService.listWithPaging(criteria));
+		
+		// 화면에 필요한 정보 가져오기&계산하기 (생성자에서 처리)
+		model.addAttribute("pageMaker", new PageDto(criteria, boardService.getTotalCount(criteria)));
+		// log.info(model);
 		
 		
-		return "boardList";
+		
 	}
+
+
 	
 	@RequestMapping("/writeForm")
 	public String writeForm() {
 		return "writeForm";
 	}
-	
-	
-	/*
-	 * @RequestParam("board_title") String board_title, @RequestParam("board_name")
-	 * String board_name,
-	 * 
-	 * @RequestParam("board_contents") String board_contents
-	 */
 	
 	@RequestMapping("/writeAction")
 	@ResponseBody

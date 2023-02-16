@@ -30,6 +30,9 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
+	// Validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
 	//jsp 설정
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'javax.servlet:jstl:1.2'

@@ -9,8 +9,11 @@ public interface MemberDao {
 	
 	
 	public MemberDto login(MemberDto memberDto) throws Exception;
-	// public String login(MemberDto memberDto) throws Exception;
-	public int join(MemberDto memberDto) throws Exception;
+	
+	// public int join(MemberDto memberDto) throws Exception;
+	
+	// 회원가입
+	public void memberJoin(MemberDto memberDto);
 	
 
 }

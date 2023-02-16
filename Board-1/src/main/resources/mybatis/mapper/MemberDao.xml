@@ -3,7 +3,7 @@
 <mapper namespace="com.study.board.dao.MemberDao">
 
 	<!-- 회원가입 -->
-	<insert id="join" parameterType="com.study.board.dto.MemberDto">
+	<insert id="memberJoin" parameterType="com.study.board.dto.MemberDto">
 	
 		INSERT INTO
 					user
@@ -31,6 +31,19 @@
 		]]>
 	
 	</select>
+	
+	<!-- 아이디 중복 검사
+ 	<select id="idCheck" resultType="com.study.board.dto.MemberDto">
+	
+		SELECT
+				count(*)
+		FROM
+				user
+		WHERE
+				user_id = #{userId}
+	
+	</select>
+	 -->
 	
 
 

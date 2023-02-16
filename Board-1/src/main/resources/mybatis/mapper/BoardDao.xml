@@ -3,16 +3,63 @@
 
 <mapper namespace="com.study.board.dao.BoardDao">
 
-	<!-- 리스트 불러오기 -->
-	<select id="list" resultType="com.study.board.dto.BoardDto">
+	<!-- SQL 구문 사용 시, 특수문자를 문자열로 인식하기 위해
+		<![CDATA[ ~~~~~~ ]]> 사이에 쿼리문 입력 -->
 	
+	<!-- 게시판 리스트 노출 & 페이징 -->
+	
+	<select id="listWithPaging" resultType="com.study.board.dto.BoardDto">
+
 		SELECT 
 				board_idx, board_title, board_contents, board_name, board_date, board_hit
-		FROM 
+		FROM
 				board
+					
+		ORDER BY
+				board_idx DESC
+		LIMIT
+				#{pageNum}, #{amount}
+
+	</select>	
+	
+	<!--  게시판 리스트 + 페이징 + 검색
+	
+	<select id="listWithPaging" resultType="com.study.board.dto.BoardDto">
+
+		SELECT 
+				*
+		FROM	(
 		
+			SELECT
+					board_idx, board_title, board_contents, board_name, board_date, board_hit
+			FROM
+					board
+			<if test = "keyword != null">
+				WHERE
+						title
+				LIKE CONCAT ('%', #{keyword}, '%')
+			</if>
+		ORDER BY
+				board_idx DESC ) AS T1
+		LIMIT
+				#{pageNum}, #{amount}
+		
+
+	</select>
+	-->
+	
+	<!-- 게시글 전체 개수 -->
+	<select id="getTotalCount" resultType="int">
+	
+		SELECT
+				count(*)
+		FROM
+				board
+	
 	</select>
 	
+	
+		
 	<!-- 게시글 작성 -->
 	<insert id="write" parameterType="com.study.board.dto.BoardDto">
 	
@@ -60,14 +107,6 @@
 		WHERE board_idx = #{board_idx}
 	
 	</update>
-	
-	<!-- 게시글 총 갯수
-	<select id="count" resultType="int">
-		SELECT
-				COUNT(board_idx)
-		FROM
-				board
-	</select>
-	 -->
+
 
 </mapper>

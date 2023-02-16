@@ -1,5 +1,6 @@
 package com.study.board.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +13,19 @@ public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	
-	//public String login(MemberDto memberDto) throws Exception {
-	//	return memberDao.login(memberDto);
-	//}
 	
 	public MemberDto login(MemberDto memberDto) throws Exception {
 		return memberDao.login(memberDto);
 	}
 	
 	
-	public int join(MemberDto memberDto) throws Exception {
-		return memberDao.join(memberDto);
+	/*
+	 * public int join(MemberDto memberDto) throws Exception { return
+	 * memberDao.join(memberDto); }
+	 */
+	
+	public void memberJoin(MemberDto memberDto) throws Exception {
+		memberDao.memberJoin(memberDto);
 	}
 
 
